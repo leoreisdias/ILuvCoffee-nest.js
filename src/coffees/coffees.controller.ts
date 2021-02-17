@@ -1,12 +1,13 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Query, Res } from '@nestjs/common';
 
 @Controller('coffees')
 export class CoffeesController {
 
-    @Get('flavors/teste')
+    @Get('flavors')
     @HttpCode(HttpStatus.GONE) //Recommended
-    findAll(){
-        return 'This would return all flavors in the next Endpoint (/coffee/flavors)';
+    findAll(@Query() nameQuery){
+        const {limit, offset } = nameQuery
+        return `This would return all flavors in the next Endpoint (/coffee/flavors), with the Query Limit=${limit} e Offset=${offset}}`;
     }
 
     @Get()
