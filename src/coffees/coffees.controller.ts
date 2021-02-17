@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -21,6 +21,16 @@ export class CoffeesController {
     @Get('/destructor/:newId')
     findOneDestructorParam(@Param('newId') newId: string){
         return `This would return a specific ${newId} from inside params with destructuring.`;
+    }
+
+    @Post()
+    create(@Body() body){
+        return body;
+    }
+
+    @Post('partialBody')
+    createPartial(@Body('name') body){
+        return body;
     }
 }
  
