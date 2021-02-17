@@ -1,18 +1,21 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Query, Res } from '@nestjs/common';
+import { CoffeesService } from './coffees.service';
 
 @Controller('coffees')
 export class CoffeesController {
+    constructor(
+        private readonly coffeeService: CoffeesService
+    ){}
 
     @Get('flavors')
-    @HttpCode(HttpStatus.GONE) //Recommended
-    findAll(@Query() nameQuery){
-        const {limit, offset } = nameQuery
-        return `This would return all flavors in the next Endpoint (/coffee/flavors), with the Query Limit=${limit} e Offset=${offset}}`;
+    findAll(@Res() response){
+        response.status(HttpStatus.GONE).send('This would return all Datas in /coffes endpoint.');
     }
 
     @Get()
-    findPureAll(@Res() response){
-        response.status(HttpStatus.GONE).send('This would return all Datas in /coffes endpoint.');
+    @HttpCode(HttpStatus.GONE) //Recommended
+    findPureAll(@Query() nameQuery){
+        return this.coffeeService.findAll();
     }
 
     @Get(':id')
@@ -22,12 +25,12 @@ export class CoffeesController {
 
     @Get('/destructor/:newId')
     findOneDestructorParam(@Param('newId') newId: string){
-        return `This would return a specific ${newId} from inside params with destructuring.`;
+        return this.coffeeService.findOne(newId);
     }
 
     @Post()
     create(@Body() body){
-        return body;
+        return this.coffeeService.create(body);
     }
 
     @Post('partialBody')
@@ -37,7 +40,7 @@ export class CoffeesController {
 
     @Patch(':id')
     update(@Param('id') id:string, @Body() body){
-        return `This will give a PARTIAL update the body of the #${id}`;
+        return this.coffeeService.update(id, body);
     }
 
     @Put(':id')
@@ -47,7 +50,7 @@ export class CoffeesController {
 
     @Delete(':id')
     remove(@Param('id') id: string){
-        return `This will remove the ${id}`;
+        return this.coffeeService.remove(id);
     }
 }
  
