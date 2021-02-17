@@ -1,16 +1,17 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Res } from '@nestjs/common';
 
 @Controller('coffees')
 export class CoffeesController {
 
     @Get('flavors/teste')
+    @HttpCode(HttpStatus.GONE) //Recommended
     findAll(){
         return 'This would return all flavors in the next Endpoint (/coffee/flavors)';
     }
 
     @Get()
-    findPureAll(){
-        return 'This would return all Datas in /coffes endpoint.';
+    findPureAll(@Res() response){
+        response.status(HttpStatus.GONE).send('This would return all Datas in /coffes endpoint.');
     }
 
     @Get(':id')
