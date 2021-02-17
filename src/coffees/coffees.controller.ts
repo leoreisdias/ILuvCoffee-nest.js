@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Res } from '@nestjs/common';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -32,6 +32,21 @@ export class CoffeesController {
     @Post('partialBody')
     createPartial(@Body('name') body){
         return body;
+    }
+
+    @Patch(':id')
+    update(@Param('id') id:string, @Body() body){
+        return `This will give a PARTIAL update the body of the #${id}`;
+    }
+
+    @Put(':id')
+    updateFull(@Param('id') id: string, @Body() body){
+        return `This will give a FULL update the body of the #${id}`;
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: string){
+        return `This will remove the ${id}`;
     }
 }
  
