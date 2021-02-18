@@ -26,12 +26,14 @@ export class CoffeesController {
     }
 
     @Get('/destructor/:newId')
-    findOneDestructorParam(@Param('newId') newId: string){
+    findOneDestructorParam(@Param('newId') newId: number){
+        console.log(typeof newId);
         return this.coffeeService.findOne(newId);
     }
 
     @Post()
     create(@Body() createCoffeeDto: CreateCoffeesDto){
+        console.log(createCoffeeDto instanceof CreateCoffeesDto)
         return this.coffeeService.create(createCoffeeDto);
     }
 
@@ -41,17 +43,17 @@ export class CoffeesController {
     }
 
     @Patch(':id')
-    update(@Param('id') id:string, @Body() updateCoffeesDto: UpdateCoffeesDto){
+    update(@Param('id') id:number, @Body() updateCoffeesDto: UpdateCoffeesDto){
         return this.coffeeService.update(id, updateCoffeesDto);
     }
 
     @Put(':id')
-    updateFull(@Param('id') id: string, @Body() body){
+    updateFull(@Param('id') id: number, @Body() body){
         return `This will give a FULL update the body of the #${id}`;
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string){
+    remove(@Param('id') id: number){
         return this.coffeeService.remove(id);
     }
 }

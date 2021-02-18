@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { CreateCoffeesDto } from './dto/create-coffees.dto';
 import { CoffeeEntity } from './entities/coffees.entity';
 
 @Injectable()
@@ -17,7 +18,7 @@ export class CoffeesService {
         return this.coffees;
     }
 
-    findOne(id: string){
+    findOne(id: number){
         // throw 'An unexpected error';
         const coffee = this.coffees.find(item => item.id == +id);
         if(!coffee)
@@ -33,14 +34,14 @@ export class CoffeesService {
         return createCoffeeDto;
     }
 
-    update(id: string, updateCoffeeDto: any){
+    update(id: number, updateCoffeeDto: any){
         const existintCoffee = this.findOne(id);
         if(existintCoffee){
             //update ...
         }
     }
 
-    remove(id: string){
+    remove(id: number){
         const coffeeIndex = this.coffees.findIndex(item => item.id == +id);
         if(coffeeIndex >=0){
             this.coffees.splice(coffeeIndex,1);
