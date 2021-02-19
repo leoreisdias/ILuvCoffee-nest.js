@@ -14,12 +14,16 @@ export class CoffeesService {
 
 
     findAll(){
-        return this.coffeeRepository.find();
+        return this.coffeeRepository.find({
+            relations: ['flavors']
+        });
     }
 
     async findOne(id: number){
         // throw 'An unexpected error';
-        const coffee = this.coffeeRepository.findOne(id);
+        const coffee = this.coffeeRepository.findOne(id,{
+            relations: ['flavors']
+        });
         if(!coffee)
             // throw new HttpException('Coffe was not Found', HttpStatus.NOT_FOUND);
             throw new NotFoundException('Coffe was not Found');
