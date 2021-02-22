@@ -12,7 +12,7 @@ export class FlavorsEntity {
     name: string;
 
     @ManyToMany(
-        type=> CoffeeEntity,
+        type => CoffeeEntity,
         coffees => coffees.flavors
     )
     coffees: CoffeeEntity[]
