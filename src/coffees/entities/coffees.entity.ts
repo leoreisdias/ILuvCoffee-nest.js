@@ -17,7 +17,7 @@ export class CoffeeEntity{
         type => FlavorsEntity,
         flavors => flavors.coffees,
         {
-            cascade: true
+            cascade: true //[insert]
         }
     )
     flavors: FlavorsEntity[];
